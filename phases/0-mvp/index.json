@@ -16,7 +16,7 @@
       "status": "completed",
       "started_at": "2026-07-31T18:34:45+0900",
       "summary": "도메인 타입(src/types/youtube.ts, analysis.ts)과 외부 의존성 0인 순수 스코어링 레이어(src/lib/viral-score.ts) 구현 — ISO8601 duration 파싱, Shorts/롱폼 분리 중앙값 기준선(ADR-005), 0~100 viralScore + 테스트 21건",
-      "completed_at": "2026-07-31T18:38:30+0900"
+      "completed_at": "2026-07-31T18:38:10+0900"
     },
     {
       "step": 2,
