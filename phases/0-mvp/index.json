@@ -45,7 +45,10 @@
     {
       "step": 5,
       "name": "ui",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-07-31T18:51:55+0900",
+      "summary": "화면 구현 — globals.css 색상 토큰 + fade-in(0.2s), Server Component page.tsx, 상태 4개(analysis/ideas/loading/error)만 갖는 Client Component ChannelInput(비제어 입력, /api/analyze·/api/recommend만 호출, topVideos는 slice(0,8)), VideoTable(썸네일 w-24·performanceRatio 3.2× 색상 분기·tabular-nums·SHORTS 텍스트 라벨), IdeaCard(근거 영상을 ID 대신 제목으로 표시, 미매칭 ID 생략), 포맷터 src/lib/format.ts 분리 + 테스트 16건(총 103건). AI 슬롭 안티패턴 0건",
+      "completed_at": "2026-07-31T18:56:20+0900"
     }
   ],
   "created_at": "2026-07-31T18:29:13+0900"
