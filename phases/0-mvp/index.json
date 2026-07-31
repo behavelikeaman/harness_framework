@@ -1,0 +1,12 @@
+{
+  "project": "viral-lens",
+  "phase": "0-mvp",
+  "steps": [
+    { "step": 0, "name": "project-setup", "status": "pending" },
+    { "step": 1, "name": "core-domain", "status": "pending" },
+    { "step": 2, "name": "youtube-service", "status": "pending" },
+    { "step": 3, "name": "claude-service", "status": "pending" },
+    { "step": 4, "name": "api-routes", "status": "pending" },
+    { "step": 5, "name": "ui", "status": "pending" }
+  ]
+}
