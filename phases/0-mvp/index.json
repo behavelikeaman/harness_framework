@@ -37,7 +37,10 @@
     {
       "step": 4,
       "name": "api-routes",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-07-31T18:47:34+0900",
+      "summary": "route handler 2개(src/app/api/analyze, recommend/route.ts, runtime=nodejs)와 공통 에러 변환기(src/lib/api-error.ts) 구현 — zod body 검증(analyze: channel 1~200자 / recommend: topVideos .max(8)), resolveChannel→fetchRecentVideos→scoreVideos 파이프라인 후 viralScore 내림차순 응답, 원본 메시지·스택·URL을 배제하고 고정 문구 { error }만 반환(상세는 console.error 서버 로그) + API 키 유출 방지 테스트 포함 17건(총 87건)",
+      "completed_at": "2026-07-31T18:53:10+0900"
     },
     {
       "step": 5,
