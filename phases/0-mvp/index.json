@@ -21,7 +21,10 @@
     {
       "step": 2,
       "name": "youtube-service",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-07-31T18:38:11+0900",
+      "summary": "10분 TTL 메모리 캐시(src/lib/cache.ts, 실패는 캐싱하지 않음)와 YouTube Data API v3 래퍼(src/services/youtube.ts) 구현 — handle/UC ID/URL 해석은 forHandle 기반, channels→playlistItems→videos 3-call 파이프라인(ADR-003), URL·API 키를 담지 않는 YoutubeError(not_found/quota/unknown) + fetch mock 테스트 33건(youtube 26 + cache 7)",
+      "completed_at": "2026-07-31T18:43:30+0900"
     },
     {
       "step": 3,
