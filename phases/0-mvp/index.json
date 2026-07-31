@@ -7,7 +7,8 @@
       "name": "project-setup",
       "status": "completed",
       "started_at": "2026-07-31T18:29:13+0900",
-      "summary": "Next.js 15 + TS strict + Tailwind v4 + Vitest 스캐폴딩, .env.example/.env.local 및 호출 시점 검증형 src/lib/env.ts와 스모크 테스트 추가 (build/lint/test 모두 통과)"
+      "summary": "Next.js 15 + TS strict + Tailwind v4 + Vitest 스캐폴딩, .env.example/.env.local 및 호출 시점 검증형 src/lib/env.ts와 스모크 테스트 추가 (build/lint/test 모두 통과)",
+      "completed_at": "2026-07-31T18:34:45+0900"
     },
     {
       "step": 1,
