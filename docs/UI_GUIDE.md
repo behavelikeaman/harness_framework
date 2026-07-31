@@ -1,9 +1,9 @@
 # UI 디자인 가이드
 
 ## 디자인 원칙
-1. {원칙 1 — 예: "도구처럼 보여야 한다. 마케팅 페이지가 아니라 매일 쓰는 대시보드."}
-2. {원칙 2}
-3. {원칙 3}
+1. 도구처럼 보여야 한다. 마케팅 랜딩 페이지가 아니라 매일 쓰는 대시보드.
+2. 데이터가 주인공이다. 장식이 숫자보다 눈에 띄면 실패다.
+3. 브랜드 색상을 두지 않는다. 색은 오직 "이 영상이 잘 됐는가"를 말할 때만 쓴다.
 
 ## AI 슬롭 안티패턴 — 하지 마라
 | 금지 사항 | 이유 |
@@ -20,57 +20,70 @@
 ### 배경
 | 용도 | 값 |
 |------|------|
-| 페이지 | {예: #0a0a0a} |
-| 카드 | {예: #141414} |
+| 페이지 | #0a0a0a |
+| 카드 | #141414 |
+| 테이블 행 hover | #1a1a1a |
 
 ### 텍스트
 | 용도 | 값 |
 |------|------|
-| 주 텍스트 | {예: text-white} |
-| 본문 | {예: text-neutral-300} |
-| 보조 | {예: text-neutral-400} |
-| 비활성 | {예: text-neutral-500} |
+| 주 텍스트 | text-white |
+| 본문 | text-neutral-300 |
+| 보조 (라벨, 단위) | text-neutral-400 |
+| 비활성 | text-neutral-500 |
 
 ### 데이터/시맨틱 색상
 | 용도 | 값 |
 |------|------|
-| {긍정/성공} | {예: #22c55e} |
-| {부정/에러} | {예: #ef4444} |
-| {중립/기본} | {예: #525252} |
+| 성과 상승 (performanceRatio ≥ 1) | #22c55e |
+| 성과 하락 / 에러 | #ef4444 |
+| 중립 / 기준선 | #525252 |
 
 ## 컴포넌트
 ### 카드
 ```
-{예: rounded-lg bg-[#141414] border border-neutral-800 p-6}
+rounded-lg bg-[#141414] border border-neutral-800 p-6
 ```
 
 ### 버튼
 ```
-Primary: {예: rounded-lg bg-white text-black hover:bg-neutral-200}
-Text:    {예: text-neutral-500 hover:text-neutral-300}
+Primary: rounded-lg bg-white text-black px-4 py-2 hover:bg-neutral-200 disabled:opacity-40
+Text:    text-neutral-500 hover:text-neutral-300
 ```
 
 ### 입력 필드
 ```
-{예: rounded-lg bg-neutral-900 border border-neutral-800 px-4 py-3}
+rounded-lg bg-neutral-900 border border-neutral-800 px-4 py-3 placeholder:text-neutral-600
+focus:outline-none focus:border-neutral-600
+```
+
+### 지표 배지 (performanceRatio)
+```
+≥ 1: text-[#22c55e]   |   < 1: text-neutral-500
+숫자 뒤에 배수 표기 (예: 3.2×). 아이콘·화살표 없이 숫자만.
 ```
 
 ## 레이아웃
-- 전체 너비: {예: max-w-5xl}
-- 정렬: {예: 좌측 정렬 기본. 중앙 정렬 금지}
-- 간격: {예: gap-3~4, 섹션 간 space-y-8}
+- 전체 너비: max-w-5xl
+- 정렬: 좌측 정렬 기본. 중앙 정렬 금지 (입력 전 초기 상태 포함)
+- 간격: gap-3~4, 섹션 간 space-y-8
+- 영상 목록은 테이블 형태. 썸네일은 w-24로 작게, 제목이 우선이다
 
 ## 타이포그래피
 | 용도 | 스타일 |
 |------|--------|
-| 페이지 제목 | {예: text-4xl font-semibold text-white} |
-| 카드 제목 | {예: text-sm font-medium text-neutral-400} |
-| 본문 | {예: text-sm text-neutral-300 leading-relaxed} |
+| 페이지 제목 | text-3xl font-semibold text-white |
+| 섹션 제목 | text-sm font-medium text-neutral-400 uppercase tracking-wide |
+| 영상 제목 | text-sm text-neutral-200 |
+| 수치 | text-sm tabular-nums (자릿수 흔들림 방지) |
+| 본문 | text-sm text-neutral-300 leading-relaxed |
 
 ## 애니메이션
-- {허용할 애니메이션만 나열. 예: fade-in (0.4s), slide-up (0.5s)}
-- {그 외 모든 애니메이션 금지}
+- fade-in (0.2s) — 결과 목록이 처음 나타날 때만
+- 로딩 표시는 스피너 대신 텍스트("분석 중…") 또는 단순 pulse
+- 그 외 모든 애니메이션 금지 (호버 트랜지션은 색상 변화 150ms까지만 허용)
 
 ## 아이콘
-- {예: SVG 인라인, strokeWidth 1.5}
-- {예: 아이콘 컨테이너(둥근 배경 박스)로 감싸지 않는다}
+- SVG 인라인, strokeWidth 1.5
+- 아이콘 컨테이너(둥근 배경 박스)로 감싸지 않는다
+- 아이콘은 최소한으로. 텍스트 라벨로 충분하면 아이콘을 쓰지 않는다
