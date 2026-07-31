@@ -13,3 +13,11 @@ export interface ChannelAnalysis {
   videos: ScoredVideo[]; // viralScore 내림차순
   analyzedAt: string; // ISO 8601
 }
+
+export interface ContentIdea {
+  title: string; // 실제 업로드 가능한 수준의 영상 제목
+  hook: string; // 첫 15초 훅 한 문장
+  format: string; // 예: "10분 튜토리얼", "60초 Shorts", "인터뷰"
+  rationale: string; // 왜 이 채널에서 통할 것인지 (근거 영상 지표를 언급)
+  referenceVideoIds: string[]; // 근거가 된 기존 영상 ID (1개 이상)
+}

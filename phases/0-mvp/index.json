@@ -29,7 +29,10 @@
     {
       "step": 3,
       "name": "claude-service",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-07-31T18:43:04+0900",
+      "summary": "ContentIdea 타입(src/types/analysis.ts)과 Anthropic SDK 래퍼(src/services/recommend.ts) 구현 — 호출 시점 클라이언트 생성, claude-opus-5 + messages.parse/zodOutputFormat 구조화 출력(ADR-004, 기획안 5개·referenceVideoIds 1개 이상 강제), 상위 8개 영상의 7개 필드만 프롬프트에 투입, 401/429 매핑 RecommendError(auth/rate_limit/unknown) + SDK mock 테스트 13건(총 70건)",
+      "completed_at": "2026-07-31T18:47:30+0900"
     },
     {
       "step": 4,
