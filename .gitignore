@@ -5,6 +5,13 @@ out/
 next-env.d.ts
 tsconfig.tsbuildinfo
 
+# python (scripts/)
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
 # phase execution outputs
 phases/**/phase*-output.json
 phases/**/step*-output.json
