@@ -1,0 +1,8 @@
+# 저장소 안에서는 LF로 정규화한다. 이유: Windows에서 clone/commit 할 때
+# core.autocrlf 설정에 따라 전체 파일이 통째로 변경된 것처럼 보이는 diff를 막는다.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.pdf binary

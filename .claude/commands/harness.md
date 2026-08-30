@@ -132,8 +132,15 @@ npm test        # 테스트 통과
 ### E. 실행
 
 ```bash
-python3 scripts/execute.py {task-name}        # 순차 실행
+# macOS / Linux
+python3 scripts/execute.py {task-name}         # 순차 실행
 python3 scripts/execute.py {task-name} --push  # 실행 후 push
+```
+
+```powershell
+# Windows (python3 는 Microsoft Store 스텁이므로 python 또는 py -3 를 쓴다)
+python scripts/execute.py {task-name}
+python scripts/execute.py {task-name} --push
 ```
 
 execute.py가 자동으로 처리하는 것:
@@ -149,3 +156,39 @@ execute.py가 자동으로 처리하는 것:
 
 - **error 발생 시**: `phases/{task-name}/index.json`에서 해당 step의 `status`를 `"pending"`으로 바꾸고 `error_message`를 삭제한 뒤 재실행한다.
 - **blocked 발생 시**: `blocked_reason`에 적힌 사유를 해결한 뒤, `status`를 `"pending"`으로 바꾸고 `blocked_reason`을 삭제한 뒤 재실행한다.
+
+---
+
+## 프로젝트별 설정
+
+### 위험 명령어 차단
+
+`.claude/settings.json`의 `permissions.deny`가 `rm -rf`, `git push --force`, `git reset --hard`를
+차단한다. Claude Code가 셸에 앞서 직접 매칭하므로 OS와 무관하게 동작한다.
+프로젝트에 맞춰 규칙을 추가하라 (예: `"Bash(drop database:*)"`).
+
+셸 스크립트를 hook 커맨드로 쓰지 마라. 이유: hook은 POSIX에서는 bash로, Git Bash가 없는
+Windows에서는 PowerShell로 실행되므로 `if ... fi`나 `&&` 같은 문법이 한쪽에서 깨진다.
+
+### Stop hook (선택)
+
+세션 종료 시 검증을 강제하고 싶으면 프로젝트 스택에 맞는 hook을 직접 추가한다.
+기본 설정에는 넣지 않는다 — 스택마다 커맨드가 다르고, execute.py가 이미 step마다
+AC 검증을 강제하기 때문이다.
+
+```json
+{
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          { "type": "command", "command": "npm run lint; npm run build; npm run test" }
+        ]
+      }
+    ]
+  }
+}
+```
+
+커맨드는 `&&` 대신 `;`로 연결하라. 이유: PowerShell 5.1에는 `&&`가 없어 파서 에러가 난다.
