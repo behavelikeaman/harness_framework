@@ -557,3 +557,29 @@ class TestCheckBlockers:
         with pytest.raises(SystemExit) as exc_info:
             inst._check_blockers()
         assert exc_info.value.code == 2
+
+
+# ---------------------------------------------------------------------------
+# 소스 호환성 가드
+# ---------------------------------------------------------------------------
+
+class TestSourceCompatibility:
+    """execute.py 가 Python 3.12 미만에서도 import 되는지 지킨다."""
+
+    def test_no_nested_same_quote_fstrings(self):
+        """f-string 안에 같은 종류의 따옴표를 중첩하지 않는다.
+
+        PEP 701 은 Python 3.12 부터라, 3.11 이하에서는 SyntaxError 가 나
+        스크립트 전체가 import 되지 않는다. 이 저장소는 여러 환경에 복사되므로
+        3.12 에서만 도는 문법을 쓰지 않는다.
+        """
+        import re
+
+        pattern = re.compile(r"""f"[^"]*\{[^}]*"|f'[^']*\{[^}]*'""")
+        scripts = [Path(__file__).parent / "execute.py", Path(__file__)]
+        offenders = []
+        for path in scripts:
+            for num, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+                if pattern.search(line):
+                    offenders.append(f"{path.name}:{num}: {line.strip()}")
+        assert not offenders, "중첩 따옴표 f-string (3.12+ 전용):\n" + "\n".join(offenders)
