@@ -3,13 +3,13 @@
 Harness Step Executor — phase 내 step을 순차 실행하고 자가 교정한다.
 
 Usage:
-    python3 scripts/execute.py <phase-dir> [--push]
+    python3 scripts/execute.py <phase-dir> [--push]   # macOS / Linux
+    python  scripts/execute.py <phase-dir> [--push]   # Windows
 """
 
 import argparse
 import contextlib
 import json
-import os
 import subprocess
 import sys
 import threading
@@ -21,10 +21,15 @@ from typing import Optional
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# Windows 기본 콘솔 인코딩(cp949)에서 한글 출력이 깨지거나 예외가 나지 않도록 강제한다.
+# Windows(cp949 등) 로케일에서도 진행 표시기/체크마크/한글이 깨지거나
+# UnicodeEncodeError 로 죽지 않도록 표준 출력 스트림을 UTF-8 로 고정한다.
 for _stream in (sys.stdout, sys.stderr):
-    if hasattr(_stream, "reconfigure"):
-        _stream.reconfigure(encoding="utf-8", errors="replace")
+    reconfigure = getattr(_stream, "reconfigure", None)
+    if reconfigure is not None:
+        try:
+            reconfigure(encoding="utf-8", errors="replace")
+        except (ValueError, OSError):
+            pass
 
 
 @contextlib.contextmanager
@@ -113,14 +118,17 @@ class StepExecutor:
 
     def _run_git(self, *args) -> subprocess.CompletedProcess:
         cmd = ["git"] + list(args)
-        return subprocess.run(cmd, cwd=self._root, capture_output=True, text=True)
+        return subprocess.run(
+            cmd, cwd=self._root, capture_output=True,
+            text=True, encoding="utf-8", errors="replace",
+        )
 
     def _checkout_branch(self):
         branch = f"feat-{self._phase_name}"
 
         r = self._run_git("rev-parse", "--abbrev-ref", "HEAD")
         if r.returncode != 0:
-            print(f"  ERROR: git을 사용할 수 없거나 git repo가 아닙니다.")
+            print("  ERROR: git을 사용할 수 없거나 git repo가 아닙니다.")
             print(f"  {r.stderr.strip()}")
             sys.exit(1)
 
@@ -242,8 +250,8 @@ class StepExecutor:
         prompt = preamble + step_file.read_text(encoding="utf-8")
         result = subprocess.run(
             ["claude", "-p", "--dangerously-skip-permissions", "--output-format", "json", prompt],
-            cwd=self._root, capture_output=True, text=True, timeout=1800,
-            encoding="utf-8", errors="replace",
+            cwd=self._root, capture_output=True,
+            text=True, encoding="utf-8", errors="replace", timeout=1800,
         )
 
         if result.returncode != 0:
